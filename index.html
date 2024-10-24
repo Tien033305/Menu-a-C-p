@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Đa Cấp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .menu {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background-color: #5483c0;
+        }
+        .menu > li {
+            position: relative;
+            display: inline-block;
+        }
+        .menu > li > a {
+            display: block;
+            padding: 14px 20px;
+            color: white;
+            text-decoration: none;
+        }
+        .menu > li > a:hover {
+            background-color: #5483c0;
+        }
+        .submenu {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background-color: #f0ecec;
+            z-index: 1;
+        }
+        .submenu li {
+            display: block;
+        }
+        .submenu li a {
+            padding: 10px 20px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<ul class="menu">
+    <li>
+        <a href="#" class="toggle">Thiết kế web</a>
+        <ul class="submenu">
+            <li><a href="#">HTML</a></li>
+            <li><a href="#">CSS</a></li>
+            <li><a href="#">JavaScript</a></li>
+        </ul>
+    </li>
+</ul>
+
+<script>
+    // Lấy tất cả các mục có class "toggle"
+    const toggles = document.querySelectorAll(".toggle");
+
+    // Thêm sự kiện click cho mỗi mục
+    toggles.forEach(toggle => {
+        toggle.addEventListener("click", function(event) {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+            const submenu = this.nextElementSibling; // Lấy menu con
+            submenu.style.display = submenu.style.display === "block" ? "none" : "block"; // Chuyển đổi giữa hiện và ẩn
+        });
+    });
+
+    // Đóng menu con khi click bên ngoài
+    document.addEventListener("click", function(event) {
+        if (!event.target.closest('.menu')) {
+            document.querySelectorAll('.submenu').forEach(submenu => {
+                submenu.style.display = "none"; // Ẩn tất cả menu con
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
